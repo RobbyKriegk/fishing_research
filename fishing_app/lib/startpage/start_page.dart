@@ -2,6 +2,8 @@ import 'package:fishing_app/app_colors.dart';
 import 'package:fishing_app/startpage/fishing_buttons.dart';
 import 'package:flutter/material.dart';
 
+import '../map_prototype.dart';
+
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
 
@@ -25,13 +27,14 @@ class _StartPageState extends State<StartPage> {
           color: AppColors.backGroundLight,
           child: Column(children: [
             Container(
-                width: double.infinity,
-                height: 400,
-                decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Center(
-                    child: Image.asset('assets/images/map_example.png'))),
+              width: double.infinity,
+              height: 400,
+              decoration: BoxDecoration(
+                  border: Border.all(), borderRadius: BorderRadius.circular(5)),
+              child: const MapPrototype(),
+            ),
+            //Center(
+            //  child: Image.asset('assets/images/map_example.png'))),
             Container(height: 20),
             const FishingButtons()
           ])),
