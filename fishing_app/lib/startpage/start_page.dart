@@ -2,7 +2,7 @@ import 'package:fishing_app/app_colors.dart';
 import 'package:fishing_app/startpage/fishing_buttons.dart';
 import 'package:flutter/material.dart';
 
-import '../map_prototype.dart';
+import '../map_prototype/map_prototype.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
