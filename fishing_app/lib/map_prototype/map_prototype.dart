@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:fishing_app/map_prototype/zoom_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -25,11 +26,12 @@ class _MapPrototypeState extends State<MapPrototype> {
       String csv, List<Map<String, dynamic>> localMap) async {
     List pointsList = [];
 
-    final input = File(csv).openRead();
-    final fields = await input
-        .transform(utf8.decoder)
-        .transform(const CsvToListConverter())
-        .toList();
+    final input = await rootBundle.loadString(csv);
+    // final fields = await input
+    //     .transform(utf8.decoder)
+    //     .transform(const CsvToListConverter())
+    //     .toList();
+    final fields = const CsvToListConverter().convert(input);
     for (int i = 1; i < fields.length; i++) {
       String pointString = fields[i][2];
       pointString = pointString.replaceAll('POINT', '');
@@ -48,12 +50,6 @@ class _MapPrototypeState extends State<MapPrototype> {
   createMarkerRoad(List<Map<String, dynamic>> localMap) {
     List<Marker> markerList = [];
     for (int i = 0; i < localMap.length; i++) {
-      // if (localMap.isEmpty) {
-      //   localMap.add({
-      //     'lat': 53.998308,
-      //     'lng': 10.974112,
-      //   });
-      // }
       setState(() {
         markerList.add(Marker(
           point: LatLng(localMap[i]['lat'], localMap[i]['lng']),
@@ -66,21 +62,9 @@ class _MapPrototypeState extends State<MapPrototype> {
     return markerList;
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   setState(() {
-  //     csvListCreator(
-  //         '/Users/robbykriegk/Desktop/development/05-app-fishen-a/fishing_app/assets/logger_5_deployment_152.csv',
-  //         mapPoints);
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
-    csvListCreator(
-        '/Users/robbykriegk/Desktop/development/05-app-fishen-a/fishing_app/assets/logger_5_deployment_152.csv',
-        mapPoints);
+    csvListCreator('assets/csv_data/sensordata.csv', mapPoints);
     return FlutterMap(
       mapController: mapController,
       options: const MapOptions(
