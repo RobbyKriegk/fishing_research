@@ -16,8 +16,10 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('IOW - Wasserdaten',
-            style: TextStyle(color: Colors.white)),
+        title: const Center(
+          child:
+              Text('IOW - Wasserdaten', style: TextStyle(color: Colors.white)),
+        ),
         backgroundColor: AppColors.backGroundDark,
       ),
       body: Container(
@@ -28,7 +30,7 @@ class _StartPageState extends State<StartPage> {
           child: Column(children: [
             Container(
               width: double.infinity,
-              height: 400,
+              height: 450,
               decoration: BoxDecoration(
                   border: Border.all(), borderRadius: BorderRadius.circular(5)),
               child: const MapPrototype(),

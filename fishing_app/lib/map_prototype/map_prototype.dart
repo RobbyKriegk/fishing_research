@@ -80,36 +80,7 @@ class _MapPrototypeState extends State<MapPrototype> {
         MarkerLayer(
           markers: createMarkerRoad(mapPoints),
         ),
-        Column(
-          children: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  fixedSize: const Size(50, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-                onPressed: () {
-                  mapController.move(
-                      mapController.center, mapController.zoom + 1);
-                },
-                child: const Icon(Icons.add, color: Colors.white)),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  fixedSize: const Size(50, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-                onPressed: () {
-                  mapController.move(
-                      mapController.center, mapController.zoom - 1);
-                },
-                child: const Icon(Icons.minimize, color: Colors.white)),
-          ],
-        )
+        ZoomButtons(mapController: mapController),
       ],
     );
   }

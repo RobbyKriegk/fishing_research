@@ -14,7 +14,7 @@ class _FishingButtonsState extends State<FishingButtons> {
         // border
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.backGroundDark,
-          fixedSize: const Size(400, 50),
+          fixedSize: const Size(400, 60),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
           ),
