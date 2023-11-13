@@ -30,14 +30,13 @@ class _StartPageState extends State<StartPage> {
           child: Column(children: [
             Container(
               width: double.infinity,
-              height: 450,
+              height: 400,
+              constraints: BoxConstraints(minHeight: 400, maxHeight: 450),
               decoration: BoxDecoration(
                   border: Border.all(), borderRadius: BorderRadius.circular(5)),
               child: const MapPrototype(),
             ),
-            //Center(
-            //  child: Image.asset('assets/images/map_example.png'))),
-            Container(height: 20),
+            const SizedBox(height: 20),
             const FishingButtons()
           ])),
     );
