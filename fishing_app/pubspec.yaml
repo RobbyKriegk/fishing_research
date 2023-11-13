@@ -67,6 +67,8 @@ flutter:
   assets:
    - assets/images/map_example.png
    - assets/images/freudiger_fisch.png
+   - assets/images/gelber_fisch.png
+   - assets/images/trauriger_fisch.png
    - assets/csv_data/sensordata.csv
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
