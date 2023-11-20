@@ -37,6 +37,7 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
               'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=O8whOpzaILpG8fOEB2Fz',
           userAgentPackageName: 'unknown',
         ),
+        CircleLayer(circles: createCircle(mapPoints, 1000)),
         MarkerLayer(
           markers: createMarkerRoad(mapPoints, ref.watch(tempProvider)),
         ),

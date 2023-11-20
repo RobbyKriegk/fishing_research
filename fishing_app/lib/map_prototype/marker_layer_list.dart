@@ -15,3 +15,16 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, double temp) {
   }
   return markerList;
 }
+
+createCircle(List<Map<String, dynamic>> localMap, double distance) {
+  List<CircleMarker> circleList = [];
+  for (int i = 0; i < localMap.length; i++) {
+    circleList.add(CircleMarker(
+      useRadiusInMeter: true,
+      point: LatLng(localMap[i]['lat'], localMap[i]['lng']),
+      color: const Color.fromARGB(40, 244, 67, 54),
+      radius: distance,
+    ));
+  }
+  return circleList;
+}

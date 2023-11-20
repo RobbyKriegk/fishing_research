@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:fishing_app/app_colors.dart';
+import 'package:fishing_app/map_prototype/csv_inputs.dart';
 import 'package:fishing_app/startpage/fishing_buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +17,8 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
+    //getFiles();
+    //loadDirectories();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -27,18 +32,21 @@ class _StartPageState extends State<StartPage> {
           width: double.infinity,
           height: double.infinity,
           color: AppColors.backGroundLight,
-          child: Column(children: [
-            Container(
-              width: double.infinity,
-              height: 400,
-              constraints: BoxConstraints(minHeight: 400, maxHeight: 450),
-              decoration: BoxDecoration(
-                  border: Border.all(), borderRadius: BorderRadius.circular(5)),
-              child: const MapPrototype(),
-            ),
-            const SizedBox(height: 20),
-            const FishingButtons()
-          ])),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 400,
+                  constraints: BoxConstraints(minHeight: 400, maxHeight: 450),
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: const MapPrototype(),
+                ),
+                const SizedBox(height: 20),
+                const FishingButtons()
+              ])),
     );
   }
 }
