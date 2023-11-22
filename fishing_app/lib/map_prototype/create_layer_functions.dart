@@ -13,6 +13,7 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, double temp) {
       child: Image.asset(waterCondition(temp)),
     ));
   }
+  print(markerList.length);
   return markerList;
 }
 
@@ -26,5 +27,6 @@ createCircle(List<Map<String, dynamic>> localMap, double distance) {
       radius: distance,
     ));
   }
+  //print(circleList.length);
   return circleList;
 }

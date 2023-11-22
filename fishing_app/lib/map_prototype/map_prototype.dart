@@ -1,5 +1,5 @@
 import 'package:fishing_app/map_prototype/csv_inputs.dart';
-import 'package:fishing_app/map_prototype/marker_layer_list.dart';
+import 'package:fishing_app/map_prototype/create_layer_functions.dart';
 import 'package:fishing_app/map_prototype/zoom_buttons.dart';
 import 'package:fishing_app/water_condition_function.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,25 @@ class MapPrototype extends ConsumerStatefulWidget {
 
 class _MapPrototypeState extends ConsumerState<MapPrototype> {
   MapController mapController = MapController();
+  List<String> csvData = [
+    'assets/csv_data/sensordata.csv',
+    'assets/csv_data/sensordata_2.csv',
+    'assets/csv_data/sensordata_3.csv',
+    'assets/csv_data/sensordata_4.csv',
+    'assets/csv_data/sensordata_5.csv',
+    'assets/csv_data/sensordata_6.csv',
+    'assets/csv_data/sensordata_7.csv',
+    'assets/csv_data/sensordata_8.csv',
+    'assets/csv_data/sensordata_9.csv',
+    'assets/csv_data/sensordata_10.csv',
+    'assets/csv_data/sensordata_11.csv',
+    'assets/csv_data/sensordata_12.csv',
+    'assets/csv_data/sensordata_13.csv',
+    'assets/csv_data/sensordata_14.csv',
+    'assets/csv_data/sensordata_15.csv',
+    'assets/csv_data/sensordata_16.csv',
+    'assets/csv_data/sensordata_17.csv',
+  ];
   // MapCamera mapCamera = MapCamera(
   //   zoom: 8,
   // );
@@ -24,7 +43,7 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
 
   @override
   Widget build(BuildContext context) {
-    csvListCreator('assets/csv_data/sensordata.csv', mapPoints);
+    csvListCreator(csvData, mapPoints);
     return FlutterMap(
       mapController: mapController,
       options: const MapOptions(
