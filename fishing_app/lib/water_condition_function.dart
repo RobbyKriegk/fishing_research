@@ -13,3 +13,4 @@ waterCondition(double temp) {
 }
 
 final tempProvider = StateProvider<double>((ref) => 0.0);
+final visibilityProvider = StateProvider<bool>((ref) => false);

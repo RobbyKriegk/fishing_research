@@ -24,6 +24,7 @@ class _FishingButtonsState extends ConsumerState<FishingButtons> {
         onPressed: () {
           setState(() {
             ref.read(tempProvider.notifier).state = temp;
+            ref.read(visibilityProvider.notifier).state = true;
           });
         },
         child: Text(

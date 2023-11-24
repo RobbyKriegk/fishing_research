@@ -15,6 +15,7 @@ class MapPrototype extends ConsumerStatefulWidget {
 }
 
 class _MapPrototypeState extends ConsumerState<MapPrototype> {
+  bool showLayer = false;
   MapController mapController = MapController();
   List<String> csvData = [
     'assets/csv_data/sensordata.csv',
@@ -57,6 +58,7 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
     if (fields.isNotEmpty) {
       mapPoints = csvListProcessing(fields);
     }
+    showLayer = ref.watch(visibilityProvider);
     return FlutterMap(
       mapController: mapController,
       options: const MapOptions(
@@ -69,10 +71,14 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
               'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=O8whOpzaILpG8fOEB2Fz',
           userAgentPackageName: 'unknown',
         ),
-        CircleLayer(circles: createCircle(mapPoints)),
-        // MarkerLayer(
-        //   markers: createMarkerRoad(mapPoints, ref.watch(tempProvider)),
-        // ),
+        Visibility(
+            visible: showLayer,
+            child: CircleLayer(circles: createCircle(mapPoints))),
+        Visibility(
+            visible: showLayer,
+            child: MarkerLayer(
+              markers: createMarkerRoad(mapPoints, ref.watch(tempProvider)),
+            )),
         ZoomButtons(mapController: mapController),
       ],
     );
