@@ -57,7 +57,7 @@ class _ZoomButtonsState extends ConsumerState<ZoomButtons> {
               });
             },
             child: const Icon(Icons.remove, color: Colors.white)),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
       ],
     );
   }

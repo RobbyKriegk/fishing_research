@@ -14,6 +14,7 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
+    //fetchData();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -33,7 +34,7 @@ class _StartPageState extends State<StartPage> {
                 Container(
                   width: double.infinity,
                   height: 400,
-                  constraints: BoxConstraints(minHeight: 400, maxHeight: 450),
+                  constraints: const BoxConstraints(minHeight: 400, maxHeight: 450),
                   decoration: BoxDecoration(
                       border: Border.all(),
                       borderRadius: BorderRadius.circular(5)),

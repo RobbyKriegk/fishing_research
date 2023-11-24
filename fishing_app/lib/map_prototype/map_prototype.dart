@@ -40,10 +40,23 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
   // );
 
   List<Map<String, dynamic>> mapPoints = [];
+  List<List<dynamic>> fields = [];
+
+  @override
+  void initState() {
+    super.initState();
+    csvListCreator(csvData).then((value) {
+      setState(() {
+        fields = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    csvListCreator(csvData, mapPoints);
+    if (fields.isNotEmpty) {
+      mapPoints = csvListProcessing(fields);
+    }
     return FlutterMap(
       mapController: mapController,
       options: const MapOptions(
@@ -56,10 +69,10 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
               'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=O8whOpzaILpG8fOEB2Fz',
           userAgentPackageName: 'unknown',
         ),
-        CircleLayer(circles: createCircle(mapPoints, 1000)),
-        MarkerLayer(
-          markers: createMarkerRoad(mapPoints, ref.watch(tempProvider)),
-        ),
+        CircleLayer(circles: createCircle(mapPoints)),
+        // MarkerLayer(
+        //   markers: createMarkerRoad(mapPoints, ref.watch(tempProvider)),
+        // ),
         ZoomButtons(mapController: mapController),
       ],
     );
