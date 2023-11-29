@@ -1,6 +1,7 @@
 import 'package:fishing_app/map_prototype/csv_inputs.dart';
 import 'package:fishing_app/map_prototype/create_layer_functions.dart';
 import 'package:fishing_app/map_prototype/zoom_buttons.dart';
+import 'package:fishing_app/startpage/fishing_buttons.dart';
 import 'package:fishing_app/water_condition_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -73,11 +74,12 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
         ),
         Visibility(
             visible: showLayer,
-            child: CircleLayer(circles: createCircle(mapPoints))),
+            child: CircleLayer(
+                circles: createCircle(mapPoints, ref.watch(qualitiyProvider)))),
         Visibility(
             visible: showLayer,
             child: MarkerLayer(
-              markers: createMarkerRoad(mapPoints, ref.watch(tempProvider)),
+              markers: createMarkerRoad(mapPoints, ref.watch(qualitiyProvider)),
             )),
         ZoomButtons(mapController: mapController),
       ],

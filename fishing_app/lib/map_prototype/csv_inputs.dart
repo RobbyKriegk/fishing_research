@@ -20,31 +20,46 @@ double median(List a) {
   }
 }
 
+double average(List a) {
+  double sum = 0;
+  for (int i = 0; i < a.length; i++) {
+    sum += a[i];
+  }
+  return sum / a.length;
+}
+
 csvListProcessing(List<List<dynamic>> fields) {
   List<Map<String, dynamic>> localMap = [];
   List pointsList = [];
   List latList = [];
   List lngList = [];
+  List o2List = [];
   double medianLat = 0;
   double medianLng = 0;
   double distance = 0;
+  double medianO2 = 0;
   for (int i = 0; i < fields.length; i++) {
     latList = [];
     lngList = [];
     for (int k = 1; k < fields[i].length; k++) {
       String pointString = fields[i][k][2];
+      double o2 = fields[i][k][9];
+      o2List.add(o2);
       pointString = pointString.replaceAll('POINT', '');
       pointString = pointString.replaceAll('(', '');
       pointString = pointString.replaceAll(')', '');
       pointsList = pointString.split(' ');
       latList.add(double.parse(pointsList[1]));
       lngList.add(double.parse(pointsList[0]));
+      print(o2);
     }
     medianLat = median(latList);
     medianLng = median(lngList);
+    medianO2 = average(o2List);
     localMap.add({
       'lat': medianLat,
       'lng': medianLng,
+      'o2': medianO2,
     });
 
     for (int i = 0; i < latList.length; i++) {
@@ -56,7 +71,6 @@ csvListProcessing(List<List<dynamic>> fields) {
     }
     localMap[i]['distance'] = distance;
   }
-  print(localMap.length);
-  print(localMap);
+  for (int i = 0; i < localMap.length; i++) {}
   return localMap;
 }

@@ -11,40 +11,64 @@ class FishingButtons extends ConsumerStatefulWidget {
 }
 
 class _FishingButtonsState extends ConsumerState<FishingButtons> {
-  fishingButton(String buttonText, double temp) {
-    return ElevatedButton(
-        // border
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.backGroundDark,
-          fixedSize: const Size(400, 60),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-        ),
-        onPressed: () {
-          setState(() {
-            ref.read(tempProvider.notifier).state = temp;
-            ref.read(visibilityProvider.notifier).state = true;
-          });
-        },
-        child: Text(
-          buttonText,
-          style: const TextStyle(fontSize: 20, color: Colors.white),
-        ));
-  }
+  ButtonStyle fishingButton = ElevatedButton.styleFrom(
+    backgroundColor: AppColors.backGroundDark,
+    fixedSize: const Size(400, 60),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5.0),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        fishingButton('Super Wasser', 15),
+        ElevatedButton(
+            style: fishingButton,
+            onPressed: () {
+              ref.read(qualitiyProvider.notifier).state = 'good';
+              ref.read(visibilityProvider.notifier).state = true;
+            },
+            child: const Text(
+              'Gute Wasserqualität',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            )),
         Container(height: 10),
-        fishingButton('Gutes Wasser', 20),
+        ElevatedButton(
+            style: fishingButton,
+            onPressed: () {
+              ref.read(qualitiyProvider.notifier).state = 'average';
+              ref.read(visibilityProvider.notifier).state = true;
+            },
+            child: const Text(
+              'Mittlere Wasserqualität',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            )),
         Container(height: 10),
-        fishingButton('Schlechtes Wasser', 30),
+        ElevatedButton(
+            style: fishingButton,
+            onPressed: () {
+              ref.read(qualitiyProvider.notifier).state = 'bad';
+              ref.read(visibilityProvider.notifier).state = true;
+            },
+            child: const Text(
+              'Schlechte Wasserqualität',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            )),
         Container(height: 10),
-        fishingButton('Eiswasser', 0),
+        ElevatedButton(
+            style: fishingButton,
+            onPressed: () {
+              ref.read(qualitiyProvider.notifier).state = 'all';
+              ref.read(visibilityProvider.notifier).state = true;
+            },
+            child: const Text(
+              'Alle Wasserqualitäten',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            )),
       ],
     );
   }
 }
+
+final qualitiyProvider = StateProvider<String>((ref) => '');

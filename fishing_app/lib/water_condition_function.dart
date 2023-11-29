@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-waterCondition(double temp) {
+waterCondition(double o2) {
   String waterCondition = '';
-  if (temp >= 5 && temp <= 15) {
+  if (o2 >= 145) {
     waterCondition = 'assets/images/freudiger_fisch.png';
-  } else if (temp >= 15 && temp <= 25) {
+  } else if (o2 >= 135 && o2 < 145) {
     waterCondition = 'assets/images/gelber_fisch.png';
   } else {
     waterCondition = 'assets/images/trauriger_fisch.png';
@@ -12,5 +12,5 @@ waterCondition(double temp) {
   return waterCondition;
 }
 
-final tempProvider = StateProvider<double>((ref) => 0.0);
+final o2Provider = StateProvider<double>((ref) => 0.0);
 final visibilityProvider = StateProvider<bool>((ref) => false);
