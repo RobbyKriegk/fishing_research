@@ -50,15 +50,16 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
     csvListCreator(csvData).then((value) {
       setState(() {
         fields = value;
+        mapPoints = csvListProcessing(fields);
       });
     });
+    //if (fields.isNotEmpty) {
+
+    //}
   }
 
   @override
   Widget build(BuildContext context) {
-    if (fields.isNotEmpty) {
-      mapPoints = csvListProcessing(fields);
-    }
     showLayer = ref.watch(visibilityProvider);
     return FlutterMap(
       mapController: mapController,

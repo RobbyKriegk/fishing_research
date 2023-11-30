@@ -13,22 +13,6 @@ class ZoomButtons extends ConsumerStatefulWidget {
 }
 
 class _ZoomButtonsState extends ConsumerState<ZoomButtons> {
-  //code for round button
-  //
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Column(
-  //     mainAxisAlignment: MainAxisAlignment.end,
-  //     crossAxisAlignment: CrossAxisAlignment.end,
-  //     children: [
-  //       SizedBox(width: MediaQuery.of(context).size.width - 30),
-  //       FloatingActionButton(
-  //         onPressed: () {
-  //           setState(() {
-  //             widget.mapController.move(
-  //                 widget.mapController.center, widget.mapController.zoom + 1);
-  //           });
-
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -52,6 +52,5 @@ cutMap(List<Map<String, dynamic>> localMap, String quality) {
       cutMap.add(localMap[i]);
     }
   }
-  print(cutMap.length);
   return cutMap;
 }
