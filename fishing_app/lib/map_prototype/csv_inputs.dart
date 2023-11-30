@@ -51,7 +51,6 @@ csvListProcessing(List<List<dynamic>> fields) {
       pointsList = pointString.split(' ');
       latList.add(double.parse(pointsList[1]));
       lngList.add(double.parse(pointsList[0]));
-      print(o2);
     }
     medianLat = median(latList);
     medianLng = median(lngList);

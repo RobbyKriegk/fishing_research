@@ -2,6 +2,7 @@ import 'package:fishing_app/app_colors.dart';
 import 'package:fishing_app/startpage/fishing_buttons.dart';
 import 'package:flutter/material.dart';
 
+import '../database_connection.dart';
 import '../map_prototype/map_prototype.dart';
 
 class StartPage extends StatefulWidget {
@@ -14,7 +15,7 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
-    //fetchData();
+    fetchData();
     return Scaffold(
       appBar: AppBar(
         title: const Center(

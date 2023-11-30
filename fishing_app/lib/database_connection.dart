@@ -1,19 +1,18 @@
-import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'package:mysql1/mysql1.dart';
 
-void fetchData() async {
-  try {
-    final response = await http.get(
-        Uri.parse('https://student:student0815@hyfive.info:3306/hyFiveDB'));
+Future fetchData() async {
+  final conn = await MySqlConnection.connect(ConnectionSettings(
+      host: 'hyfive.info',
+      port: 3306,
+      user: 'student',
+      db: 'hyFiveDB',
+      password: 'student0815'));
 
-    if (response.statusCode == 200) {
-      // Parse the response data (response.body) here
-      print('Data: ${response.body}');
-    } else {
-      // Handle errors
-      print('Failed to load data: ${response.statusCode}');
-    }
-  } catch (e) {
-    // Handle exceptions
-    print('Error: $e');
-  }
+  var result = await conn.query('select deployment_id from Deployment');
+
+  print(result);
+
+  // Finally, close the connection
+  await conn.close();
 }

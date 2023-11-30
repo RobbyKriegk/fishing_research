@@ -41,6 +41,7 @@ dependencies:
   csv: ^5.1.1
   riverpod: ^2.4.5
   http: ^1.0.0
+  mysql1: ^0.20.0
 
 dev_dependencies:
   flutter_test:
