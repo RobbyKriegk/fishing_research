@@ -71,6 +71,9 @@ flutter:
    - assets/images/freudiger_fisch.png
    - assets/images/gelber_fisch.png
    - assets/images/trauriger_fisch.png
+   - assets/images/happy_green_fish.png
+   - assets/images/yellow_fish.png
+   - assets/images/sad_red_fish.png
    - assets/csv_data/sensordata.csv
    - assets/csv_data/sensordata_2.csv
    - assets/csv_data/sensordata_3.csv

@@ -10,8 +10,8 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality) {
   for (int i = 0; i < cuttedMap.length; i++) {
     markerList.add(Marker(
       point: LatLng(cuttedMap[i]['lat'], cuttedMap[i]['lng']),
-      width: 60,
-      height: 60,
+      width: 80,
+      height: 80,
       child: Image.asset(waterCondition(cuttedMap[i]['o2'])),
     ));
   }
@@ -39,14 +39,13 @@ cutMap(List<Map<String, dynamic>> localMap, String quality) {
   for (int i = 0; i < localMap.length; i++) {
     if (quality == 'good' &&
         waterCondition(localMap[i]['o2']) ==
-            'assets/images/freudiger_fisch.png') {
+            'assets/images/happy_green_fish.png') {
       cutMap.add(localMap[i]);
     } else if (quality == 'average' &&
-        waterCondition(localMap[i]['o2']) == 'assets/images/gelber_fisch.png') {
+        waterCondition(localMap[i]['o2']) == 'assets/images/yellow_fish.png') {
       cutMap.add(localMap[i]);
     } else if (quality == 'bad' &&
-        waterCondition(localMap[i]['o2']) ==
-            'assets/images/trauriger_fisch.png') {
+        waterCondition(localMap[i]['o2']) == 'assets/images/sad_red_fish.png') {
       cutMap.add(localMap[i]);
     } else if (quality == 'all') {
       cutMap.add(localMap[i]);

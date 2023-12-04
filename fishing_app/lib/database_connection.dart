@@ -9,9 +9,25 @@ Future fetchData() async {
       db: 'hyFiveDB',
       password: 'student0815'));
 
-  var result = await conn.query('select deployment_id from Deployment');
+  var loggerId = 5;
+  var deploymentId = 176;
 
-  print(result);
+// TODO: query dont work with locationFunction -> need to solve
+//       implement more of the pythopn file
+
+  var queryRawValues = await conn.query(
+      'SELECT deployment_id, sensor_id, logger_id, measuring_time, ST_AsText(measuring_location) as measuring_location, value, pressure FROM RawValue WHERE logger_id = ? AND deployment_id = ?',
+      [loggerId, deploymentId]);
+
+// print all values from queryRawValues
+  for (var row in queryRawValues) {
+    if (queryRawValues.isEmpty) {
+      print('No data available');
+    } else {
+      print(
+          'Deployment ID: ${row[0]}, Sensor ID: ${row[1]}, Logger ID: ${row[2]}, Measuring Time: ${row[3]}, Measuring Location: ${row[4]}, Value: ${row[5]}, Pressure: ${row[6]}');
+    }
+  }
 
   // Finally, close the connection
   await conn.close();

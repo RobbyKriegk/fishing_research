@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 waterCondition(double o2) {
   String waterCondition = '';
   if (o2 >= 145) {
-    waterCondition = 'assets/images/freudiger_fisch.png';
-  } else if (o2 >= 135 && o2 < 145) {
-    waterCondition = 'assets/images/gelber_fisch.png';
+    waterCondition = 'assets/images/happy_green_fish.png';
+  } else if (o2 >= 140 && o2 < 145) {
+    waterCondition = 'assets/images/yellow_fish.png';
   } else {
-    waterCondition = 'assets/images/trauriger_fisch.png';
+    waterCondition = 'assets/images/sad_red_fish.png';
   }
   return waterCondition;
 }
