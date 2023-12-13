@@ -16,7 +16,7 @@ Future fetchData() async {
 //       implement more of the pythopn file
 
   var queryRawValues = await conn.query(
-      'SELECT deployment_id, sensor_id, logger_id, measuring_time, ST_AsText(measuring_location) as measuring_location, value, pressure FROM RawValue WHERE logger_id = ? AND deployment_id = ?',
+      'SELECT deployment_id, sensor_id, logger_id, measuring_time, ST_X(measuring_location) as lng_coordinate, ST_Y(measuring_location) as lat_coordinate, pressure, value FROM RawValue WHERE logger_id = ? AND deployment_id = ?',
       [loggerId, deploymentId]);
 
 // print all values from queryRawValues
@@ -25,9 +25,10 @@ Future fetchData() async {
       print('No data available');
     } else {
       print(
-          'Deployment ID: ${row[0]}, Sensor ID: ${row[1]}, Logger ID: ${row[2]}, Measuring Time: ${row[3]}, Measuring Location: ${row[4]}, Value: ${row[5]}, Pressure: ${row[6]}');
+          'Deployment ID: ${row[0]}, Sensor ID: ${row[1]}, Logger ID: ${row[2]}, Measuring Time: ${row[3]}, Lng_coordinate: ${row[4]}, Lat_coordinate: ${row[5]}, Pressure: ${row[6]}, value: ${row[7]} ');
     }
   }
+// <5>
 
   // Finally, close the connection
   await conn.close();

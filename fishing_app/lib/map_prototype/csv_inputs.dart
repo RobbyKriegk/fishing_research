@@ -69,7 +69,6 @@ csvListProcessing(List<List<dynamic>> fields) {
       }
     }
     localMap[i]['distance'] = distance;
-    print(localMap[i]['o2']);
   }
   for (int i = 0; i < localMap.length; i++) {}
   return localMap;
