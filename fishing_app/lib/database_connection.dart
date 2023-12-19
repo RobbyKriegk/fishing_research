@@ -9,26 +9,53 @@ Future fetchData() async {
       db: 'hyFiveDB',
       password: 'student0815'));
 
-  var loggerId = 5;
-  var deploymentId = 176;
+  int loggerId;
+  int deploymentId;
+  List rawValues = [];
+  List sensors = [];
+  Map<String, dynamic> dataNewFrame = {
+    'time': [],
+    'lng': [],
+    'lat': [],
+    'pressure': [],
+  };
 
-// TODO: query dont work with locationFunction -> need to solve
 //       implement more of the pythopn file
+  for (int i = 152; i < 153; i++) {
+    print('Deployment ID: $i');
+    loggerId = 5;
 
-  var queryRawValues = await conn.query(
-      'SELECT deployment_id, sensor_id, logger_id, measuring_time, ST_X(measuring_location) as lng_coordinate, ST_Y(measuring_location) as lat_coordinate, pressure, value FROM RawValue WHERE logger_id = ? AND deployment_id = ?',
-      [loggerId, deploymentId]);
+    var queryRawValues = await conn.query(
+        'SELECT deployment_id, sensor_id, logger_id, measuring_time, ST_X(measuring_location) as lng_coordinate, ST_Y(measuring_location) as lat_coordinate, pressure, value FROM RawValue WHERE logger_id = ? AND deployment_id = ?',
+        [loggerId, i]);
+
+    for (var row in queryRawValues) {
+      rawValues.add(row);
+    }
+
+    for (int j = 0; j < 3; j++) {
+      sensors.add(rawValues[j][1]);
+    }
+
+    print(sensors);
+
+    for (int j = 0; j < rawValues.length; j++) {
+      if (sensors.isNotEmpty) {
+        if (rawValues.elementAt(j)[1] == sensors[0]) {
+          dataNewFrame['time'].add(rawValues[j][3]);
+          dataNewFrame['lng'].add(rawValues[j][4]);
+          dataNewFrame['lat'].add(rawValues[j][5]);
+          dataNewFrame['pressure'].add(rawValues[j][6]);
+        }
+      } else {
+        print('empty');
+      }
+    }
+
+    print(dataNewFrame['time'].length);
+  }
 
 // print all values from queryRawValues
-  for (var row in queryRawValues) {
-    if (queryRawValues.isEmpty) {
-      print('No data available');
-    } else {
-      print(
-          'Deployment ID: ${row[0]}, Sensor ID: ${row[1]}, Logger ID: ${row[2]}, Measuring Time: ${row[3]}, Lng_coordinate: ${row[4]}, Lat_coordinate: ${row[5]}, Pressure: ${row[6]}, value: ${row[7]} ');
-    }
-  }
-// <5>
 
   // Finally, close the connection
   await conn.close();
