@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:mysql1/mysql1.dart';
+import 'package:http/http.dart' as http;
 
 Future fetchData() async {
   final conn = await MySqlConnection.connect(ConnectionSettings(
@@ -10,10 +11,15 @@ Future fetchData() async {
       password: 'student0815'));
 
   int loggerId;
-  int deploymentId;
+  int deplIDStart = 152;
+  int deplIDEnd = 177;
   List rawValues = [];
   List sensors = [];
+  List parameter = [];
   Map<String, dynamic> dataNewFrame = {
+    'sensorID': [],
+    'parameter': [],
+    'value': [],
     'time': [],
     'lng': [],
     'lat': [],
@@ -21,7 +27,7 @@ Future fetchData() async {
   };
 
 //       implement more of the pythopn file
-  for (int i = 152; i < 153; i++) {
+  for (int i = deplIDStart; i < deplIDEnd; i++) {
     print('Deployment ID: $i');
     loggerId = 5;
 
@@ -39,6 +45,15 @@ Future fetchData() async {
 
     print(sensors);
 
+    for (int j = 0; j < sensors.length; j++) {
+      var querySensors = await conn.query(
+          'SELECT st.parameter FROM SensorType st JOIN Sensor s ON st.sensor_type_id = s.sensor_type_id WHERE s.sensor_id = ?',
+          [j]);
+      for (var row in querySensors) {
+        parameter.add(row);
+      }
+    }
+
     for (int j = 0; j < rawValues.length; j++) {
       if (sensors.isNotEmpty) {
         if (rawValues.elementAt(j)[1] == sensors[0]) {
@@ -51,12 +66,16 @@ Future fetchData() async {
         print('empty');
       }
     }
-
-    print(dataNewFrame['time'].length);
   }
+  print(dataNewFrame);
 
 // print all values from queryRawValues
 
   // Finally, close the connection
   await conn.close();
+}
+
+Future csvFromServer() async {
+  final conn =
+      await http.get(Uri.parse('http://10.222.25.250:5000/start_main'));
 }
