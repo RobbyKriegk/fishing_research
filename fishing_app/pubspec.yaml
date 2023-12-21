@@ -75,22 +75,22 @@ flutter:
    - assets/images/yellow_fish.png
    - assets/images/sad_red_fish.png
    - assets/csv_data/sensordata.csv
-   - assets/csv_data/sensordata_2.csv
-   - assets/csv_data/sensordata_3.csv
-   - assets/csv_data/sensordata_4.csv
-   - assets/csv_data/sensordata_5.csv
-   - assets/csv_data/sensordata_6.csv
-   - assets/csv_data/sensordata_7.csv
-   - assets/csv_data/sensordata_8.csv
-   - assets/csv_data/sensordata_9.csv
-   - assets/csv_data/sensordata_10.csv
-   - assets/csv_data/sensordata_11.csv
-   - assets/csv_data/sensordata_12.csv
-   - assets/csv_data/sensordata_13.csv
-   - assets/csv_data/sensordata_14.csv
-   - assets/csv_data/sensordata_15.csv
-   - assets/csv_data/sensordata_16.csv
-   - assets/csv_data/sensordata_17.csv
+  #  - assets/csv_data/sensordata_2.csv
+  #  - assets/csv_data/sensordata_3.csv
+  #  - assets/csv_data/sensordata_4.csv
+  #  - assets/csv_data/sensordata_5.csv
+  #  - assets/csv_data/sensordata_6.csv
+  #  - assets/csv_data/sensordata_7.csv
+  #  - assets/csv_data/sensordata_8.csv
+  #  - assets/csv_data/sensordata_9.csv
+  #  - assets/csv_data/sensordata_10.csv
+  #  - assets/csv_data/sensordata_11.csv
+  #  - assets/csv_data/sensordata_12.csv
+  #  - assets/csv_data/sensordata_13.csv
+  #  - assets/csv_data/sensordata_14.csv
+  #  - assets/csv_data/sensordata_15.csv
+  #  - assets/csv_data/sensordata_16.csv
+  #  - assets/csv_data/sensordata_17.csv
    
 
   #   - images/a_dot_burr.jpeg

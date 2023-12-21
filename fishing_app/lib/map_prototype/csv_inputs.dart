@@ -1,13 +1,20 @@
+import "dart:io";
+
 import "package:csv/csv.dart";
 import "package:fishing_app/map_prototype/get_distance.dart";
 import "package:flutter/services.dart";
 
-Future<List<List<dynamic>>> csvListCreator(List<String> csvData) async {
+Future<List<List<dynamic>>> csvListCreator() async {
   List<List<dynamic>> fields = [];
-  for (int i = 0; i < csvData.length; i++) {
-    final input = await rootBundle.loadString(csvData[i]);
-    fields.add(const CsvToListConverter().convert(input));
-  }
+  // List<dynamic> csvFolderData = Directory('../assets/csv_data').listSync();
+  // if (csvFolderData.isEmpty) {
+  //   print('csvFolderData is empty');
+  // } else {
+  //   for (int i = 0; i < csvFolderData.length; i++) {
+  //     final input = await rootBundle.loadString(csvFolderData[i]);
+  //     fields.add(const CsvToListConverter().convert(input));
+  //   }
+  // }
   return fields;
 }
 

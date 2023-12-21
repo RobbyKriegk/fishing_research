@@ -78,4 +78,5 @@ Future fetchData() async {
 Future csvFromServer() async {
   final conn =
       await http.get(Uri.parse('http://10.222.25.250:5000/start_main'));
+  print(conn.body.length);
 }
