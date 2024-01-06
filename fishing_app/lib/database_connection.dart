@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'package:csv/csv.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:http/http.dart' as http;
 
@@ -76,7 +79,20 @@ Future fetchData() async {
 }
 
 Future csvFromServer() async {
+  var jsonResponse;
+  List<List<dynamic>> csvData = [];
   final conn =
-      await http.get(Uri.parse('http://10.222.25.250:5000/start_main'));
-  print(conn.body.length);
+      await http.get(Uri.parse('https://fishing-app-backend.vercel.app/'));
+  if (conn.statusCode == 200) {
+    jsonResponse = jsonDecode(conn.body);
+    csvData = jsonResponse
+        .map<List<dynamic>>((item) => List<dynamic>.from(item))
+        .toList();
+    for (int i = 0; i < csvData.length; i++) {
+      print(csvData[i].length);
+    }
+    return csvData;
+  } else {
+    print('Request failed with status: ${conn.statusCode}.');
+  }
 }

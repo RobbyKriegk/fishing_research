@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fishing_app/database_connection.dart';
 import 'package:fishing_app/map_prototype/csv_inputs.dart';
 import 'package:fishing_app/map_prototype/create_layer_functions.dart';
 import 'package:fishing_app/map_prototype/zoom_buttons.dart';
@@ -20,25 +21,25 @@ class MapPrototype extends ConsumerStatefulWidget {
 class _MapPrototypeState extends ConsumerState<MapPrototype> {
   bool showLayer = false;
   MapController mapController = MapController();
-  // List<String> csvData = [
-  //   'assets/csv_data/sensordata.csv',
-  //   'assets/csv_data/sensordata_2.csv',
-  //   'assets/csv_data/sensordata_3.csv',
-  //   'assets/csv_data/sensordata_4.csv',
-  //   'assets/csv_data/sensordata_5.csv',
-  //   'assets/csv_data/sensordata_6.csv',
-  //   'assets/csv_data/sensordata_7.csv',
-  //   'assets/csv_data/sensordata_8.csv',
-  //   'assets/csv_data/sensordata_9.csv',
-  //   'assets/csv_data/sensordata_10.csv',
-  //   'assets/csv_data/sensordata_11.csv',
-  //   'assets/csv_data/sensordata_12.csv',
-  //   'assets/csv_data/sensordata_13.csv',
-  //   'assets/csv_data/sensordata_14.csv',
-  //   'assets/csv_data/sensordata_15.csv',
-  //   'assets/csv_data/sensordata_16.csv',
-  //   'assets/csv_data/sensordata_17.csv',
-  // ];
+  List<dynamic> csvData = [
+    // 'assets/csv_data/sensordata.csv',
+    // 'assets/csv_data/sensordata_2.csv',
+    // 'assets/csv_data/sensordata_3.csv',
+    // 'assets/csv_data/sensordata_4.csv',
+    // 'assets/csv_data/sensordata_5.csv',
+    // 'assets/csv_data/sensordata_6.csv',
+    // 'assets/csv_data/sensordata_7.csv',
+    // 'assets/csv_data/sensordata_8.csv',
+    // 'assets/csv_data/sensordata_9.csv',
+    // 'assets/csv_data/sensordata_10.csv',
+    // 'assets/csv_data/sensordata_11.csv',
+    // 'assets/csv_data/sensordata_12.csv',
+    // 'assets/csv_data/sensordata_13.csv',
+    // 'assets/csv_data/sensordata_14.csv',
+    // 'assets/csv_data/sensordata_15.csv',
+    // 'assets/csv_data/sensordata_16.csv',
+    // 'assets/csv_data/sensordata_17.csv',
+  ];
   // MapCamera mapCamera = MapCamera(
   //   zoom: 8,
   // );
@@ -49,14 +50,22 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
   @override
   void initState() {
     super.initState();
-
-    print(Directory.current.path);
-    csvListCreator().then((value) {
+    csvFromServer().then((value) {
       setState(() {
-        fields = value;
-        mapPoints = csvListProcessing(fields);
+        if (value != null) {
+          csvData = value;
+          // csvListCreator(csvData).then((value) {
+          //   setState(() {
+          //     fields = value;
+          //     //print('fields: $fields');
+          mapPoints = csvListProcessing(value);
+          // });
+          // }
+          //);
+        }
       });
     });
+
     //if (fields.isNotEmpty) {
 
     //}

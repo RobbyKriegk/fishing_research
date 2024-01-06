@@ -4,17 +4,14 @@ import "package:csv/csv.dart";
 import "package:fishing_app/map_prototype/get_distance.dart";
 import "package:flutter/services.dart";
 
-Future<List<List<dynamic>>> csvListCreator() async {
+Future<List<List<dynamic>>> csvListCreator(List csvData) async {
   List<List<dynamic>> fields = [];
-  // List<dynamic> csvFolderData = Directory('../assets/csv_data').listSync();
-  // if (csvFolderData.isEmpty) {
-  //   print('csvFolderData is empty');
-  // } else {
-  //   for (int i = 0; i < csvFolderData.length; i++) {
-  //     final input = await rootBundle.loadString(csvFolderData[i]);
-  //     fields.add(const CsvToListConverter().convert(input));
-  //   }
-  // }
+  for (int i = 0; i < csvData.length; i++) {
+    final input = await csvData[i];
+    fields.add(const CsvToListConverter().convert(input));
+  }
+  print('fields: $fields');
+  print(fields[0][0].length);
   return fields;
 }
 
@@ -50,7 +47,8 @@ csvListProcessing(List<List<dynamic>> fields) {
     lngList = [];
     for (int k = 1; k < fields[i].length; k++) {
       String pointString = fields[i][k][2];
-      double o2 = fields[i][k][9];
+      print(fields[i][k][9]);
+      double o2 = double.parse(fields[i][k][9]);
       o2List.add(o2);
       pointString = pointString.replaceAll('POINT', '');
       pointString = pointString.replaceAll('(', '');
