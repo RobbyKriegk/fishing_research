@@ -1,4 +1,5 @@
 import 'package:fishing_app/app_colors.dart';
+import 'package:fishing_app/startpage/dropdown.dart';
 import 'package:fishing_app/startpage/fishing_buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,8 @@ class _StartPageState extends State<StartPage> {
                   child: const MapPrototype(),
                 ),
                 const SizedBox(height: 20),
-                const FishingButtons()
+                // const FishingButtons(),
+                const Dropdown()
               ])),
     );
   }
