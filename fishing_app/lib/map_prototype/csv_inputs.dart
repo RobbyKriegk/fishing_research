@@ -1,8 +1,7 @@
-import "dart:io";
-
 import "package:csv/csv.dart";
 import "package:fishing_app/map_prototype/get_distance.dart";
-import "package:flutter/services.dart";
+import "package:fishing_app/provider.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 
 Future<List<List<dynamic>>> csvListCreator(List csvData) async {
   List<List<dynamic>> fields = [];
@@ -34,22 +33,29 @@ double average(List a) {
 
 csvListProcessing(List<List<dynamic>> fields) {
   List<Map<String, dynamic>> localMap = [];
-  List pointsList = [];
-  List latList = [];
-  List lngList = [];
-  List o2List = [];
   double medianLat = 0;
   double medianLng = 0;
   double distance = 0;
   double medianO2 = 0;
   for (int i = 0; i < fields.length; i++) {
-    latList = [];
-    lngList = [];
+    List pointsList = [];
+    List latList = [];
+    List lngList = [];
+    List o2List = [];
+    List dateList = [];
+    List timeList = [];
     for (int k = 1; k < fields[i].length; k++) {
-      String pointString = fields[i][k][2];
-      print(fields[i][k][9]);
+      // get o2 values
       double o2 = double.parse(fields[i][k][9]);
       o2List.add(o2);
+      // get dates + times
+      String date = fields[i][k][1];
+      String time = date.substring(11, 19);
+      date = date.substring(0, 10);
+      dateList.add(date);
+      timeList.add(time);
+      // get lat/lng points
+      String pointString = fields[i][k][2];
       pointString = pointString.replaceAll('POINT', '');
       pointString = pointString.replaceAll('(', '');
       pointString = pointString.replaceAll(')', '');
@@ -64,6 +70,8 @@ csvListProcessing(List<List<dynamic>> fields) {
       'lat': medianLat,
       'lng': medianLng,
       'o2': medianO2,
+      'date': dateList[i],
+      'time': timeList[timeList.length ~/ 2],
     });
 
     for (int i = 0; i < latList.length; i++) {
@@ -75,6 +83,8 @@ csvListProcessing(List<List<dynamic>> fields) {
     }
     localMap[i]['distance'] = distance;
   }
-  for (int i = 0; i < localMap.length; i++) {}
+  for (int i = 0; i < localMap.length; i++) {
+    print('$i, ${localMap[i]}');
+  }
   return localMap;
 }

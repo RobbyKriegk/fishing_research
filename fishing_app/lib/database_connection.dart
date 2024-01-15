@@ -88,7 +88,6 @@ Future csvFromServer() async {
     csvData = jsonResponse
         .map<List<dynamic>>((item) => List<dynamic>.from(item))
         .toList();
-    for (int i = 0; i < csvData.length; i++) {}
     return csvData;
   } else {
     print('Request failed with status: ${conn.statusCode}.');

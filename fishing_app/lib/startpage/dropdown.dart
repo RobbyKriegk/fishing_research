@@ -1,5 +1,7 @@
 import 'package:fishing_app/app_colors.dart';
+import 'package:fishing_app/provider.dart';
 import 'package:fishing_app/startpage/fishing_buttons.dart';
+import 'package:fishing_app/water_condition_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,48 +14,62 @@ class Dropdown extends ConsumerStatefulWidget {
 
 class _DropdownState extends ConsumerState<Dropdown> {
   List<DropdownMenuEntry> items2 = [
-    const DropdownMenuEntry(
-      value: 'good',
-      label: 'Gute Wasserqualität',
-    ),
-    const DropdownMenuEntry(
-      value: 'average',
-      label: 'Mittlere Wasserqualität',
-    ),
-    const DropdownMenuEntry(
-      value: 'bad',
-      label: 'Schlechte Wasserqualität',
-    ),
-    const DropdownMenuEntry(
-      value: 'all',
-      label: 'Alle Wasserqualitäten',
-    ),
+    DropdownMenuEntry(
+        value: 'good',
+        label: 'Gute Wasserqualität',
+        style: ButtonStyle(
+            textStyle:
+                MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
+    DropdownMenuEntry(
+        value: 'average',
+        label: 'Mittlere Wasserqualität',
+        style: ButtonStyle(
+            textStyle:
+                MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
+    DropdownMenuEntry(
+        value: 'bad',
+        label: 'Schlechte Wasserqualität',
+        style: ButtonStyle(
+            textStyle:
+                MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
+    DropdownMenuEntry(
+        value: 'all',
+        label: 'Alle Wasserqualitäten',
+        style: ButtonStyle(
+            textStyle:
+                MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
   ];
+
+  buildDatesDropdownList(List<String> dates) {
+    List<DropdownMenuEntry> datesList = [];
+    for (int i = 0; i < dates.length; i++) {
+      datesList.add(DropdownMenuEntry(
+          value: dates[i],
+          label: dates[i],
+          style: ButtonStyle(
+              textStyle:
+                  MaterialStateProperty.all(const TextStyle(fontSize: 18)))));
+    }
+    return datesList;
+  }
 
   List<DropdownMenuEntry> dates = [
     const DropdownMenuEntry(value: 'first day', label: 'first day')
   ];
 
-  ButtonStyle fishingButton = ElevatedButton.styleFrom(
-    backgroundColor: AppColors.backGroundDark,
-    fixedSize: const Size(400, 60),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(5.0),
-    ),
-  );
-
   InputDecorationTheme dropdownTheme = const InputDecorationTheme(
     filled: true,
     suffixIconColor: Colors.white,
+    suffixStyle: TextStyle(color: Colors.white, fontSize: 20),
     fillColor: AppColors.backGroundDark,
-    labelStyle: TextStyle(color: Colors.white),
-    floatingLabelStyle: TextStyle(color: Colors.black, fontSize: 20),
-    helperStyle: TextStyle(color: Colors.white),
-    hintStyle: TextStyle(color: Colors.black),
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    labelStyle: TextStyle(color: Colors.white, fontSize: 20),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(5)),
     ),
   );
+
+  MenuStyle dropdownStyle = const MenuStyle();
 
   @override
   Widget build(BuildContext context) {
@@ -61,20 +77,36 @@ class _DropdownState extends ConsumerState<Dropdown> {
       children: [
         DropdownMenu(
             inputDecorationTheme: dropdownTheme,
+            trailingIcon: const Icon(Icons.arrow_drop_down, size: 30),
             label: const Text('Wasserqualität label'),
-            helperText: 'Wähle eine Wasserqualität aus',
-            menuStyle: const MenuStyle(
-              alignment: Alignment.center,
-            ),
-            hintText: 'Wasserqualität',
+            textStyle: const TextStyle(color: Colors.white, fontSize: 20),
             width: 390,
-            dropdownMenuEntries: items2),
-        const SizedBox(height: 40),
+            dropdownMenuEntries: items2,
+            onSelected: (value) {
+              if (value == 'good') {
+                ref.read(qualitiyProvider.notifier).state = 'good';
+                ref.read(visibilityProvider.notifier).state = true;
+              } else if (value == 'average') {
+                ref.read(qualitiyProvider.notifier).state = 'average';
+                ref.read(visibilityProvider.notifier).state = true;
+              } else if (value == 'bad') {
+                ref.read(qualitiyProvider.notifier).state = 'bad';
+                ref.read(visibilityProvider.notifier).state = true;
+              } else if (value == 'all') {
+                ref.read(qualitiyProvider.notifier).state = 'all';
+                ref.read(visibilityProvider.notifier).state = true;
+              }
+            }),
+        const SizedBox(height: 20),
         DropdownMenu(
             inputDecorationTheme: dropdownTheme,
+            trailingIcon: const Icon(Icons.arrow_drop_down, size: 30),
             label: const Text('Datum'),
+            textStyle: const TextStyle(color: Colors.white, fontSize: 20),
             width: 390,
-            dropdownMenuEntries: dates),
+            dropdownMenuEntries:
+                buildDatesDropdownList(ref.watch(dateProvider))),
+        const SizedBox(height: 20),
       ],
     );
   }

@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:fishing_app/database_connection.dart';
 import 'package:fishing_app/map_prototype/csv_inputs.dart';
 import 'package:fishing_app/map_prototype/create_layer_functions.dart';
 import 'package:fishing_app/map_prototype/zoom_buttons.dart';
-import 'package:fishing_app/startpage/fishing_buttons.dart';
-import 'package:fishing_app/water_condition_function.dart';
+import 'package:fishing_app/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,28 +18,7 @@ class MapPrototype extends ConsumerStatefulWidget {
 class _MapPrototypeState extends ConsumerState<MapPrototype> {
   bool showLayer = false;
   MapController mapController = MapController();
-  List<dynamic> csvData = [
-    // 'assets/csv_data/sensordata.csv',
-    // 'assets/csv_data/sensordata_2.csv',
-    // 'assets/csv_data/sensordata_3.csv',
-    // 'assets/csv_data/sensordata_4.csv',
-    // 'assets/csv_data/sensordata_5.csv',
-    // 'assets/csv_data/sensordata_6.csv',
-    // 'assets/csv_data/sensordata_7.csv',
-    // 'assets/csv_data/sensordata_8.csv',
-    // 'assets/csv_data/sensordata_9.csv',
-    // 'assets/csv_data/sensordata_10.csv',
-    // 'assets/csv_data/sensordata_11.csv',
-    // 'assets/csv_data/sensordata_12.csv',
-    // 'assets/csv_data/sensordata_13.csv',
-    // 'assets/csv_data/sensordata_14.csv',
-    // 'assets/csv_data/sensordata_15.csv',
-    // 'assets/csv_data/sensordata_16.csv',
-    // 'assets/csv_data/sensordata_17.csv',
-  ];
-  // MapCamera mapCamera = MapCamera(
-  //   zoom: 8,
-  // );
+  List<dynamic> csvData = [];
 
   List<Map<String, dynamic>> mapPoints = [];
   List<List<dynamic>> fields = [];
@@ -54,21 +30,14 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
       setState(() {
         if (value != null) {
           csvData = value;
-          // csvListCreator(csvData).then((value) {
-          //   setState(() {
-          //     fields = value;
-          //     //print('fields: $fields');
           mapPoints = csvListProcessing(value);
-          // });
-          // }
-          //);
         }
+        List<String> dates =
+            mapPoints.map((point) => point['date'].toString()).toList();
+        dates = dates.toSet().toList();
+        ref.read(dateProvider.notifier).state = dates;
       });
     });
-
-    //if (fields.isNotEmpty) {
-
-    //}
   }
 
   @override

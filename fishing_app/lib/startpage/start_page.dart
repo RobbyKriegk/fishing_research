@@ -32,20 +32,19 @@ class _StartPageState extends State<StartPage> {
           height: double.infinity,
           color: AppColors.backGroundLight,
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   width: double.infinity,
-                  height: 400,
+                  height: 500,
                   constraints:
-                      const BoxConstraints(minHeight: 400, maxHeight: 450),
+                      const BoxConstraints(minHeight: 400, maxHeight: 500),
                   decoration: BoxDecoration(
                       border: Border.all(),
                       borderRadius: BorderRadius.circular(5)),
                   child: const MapPrototype(),
                 ),
-                const SizedBox(height: 20),
-                // const FishingButtons(),
+                const SizedBox(height: 40),
                 const Dropdown()
               ])),
     );
