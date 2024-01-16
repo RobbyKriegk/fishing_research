@@ -1,2 +1,0 @@
-def csv(): 
-    return 'csv'
