@@ -42,22 +42,22 @@ cutMap(
   List<Map<String, dynamic>> cutMap = [];
   String waterQuality = '';
   String date = '';
+  Map<String, dynamic> qualityToImageMap = {
+    'good': 'assets/images/happy_green_fish.png',
+    'average': 'assets/images/yellow_fish.png',
+    'bad': 'assets/images/sad_red_fish.png',
+  };
+
   for (int i = 0; i < localMap.length; i++) {
     waterQuality = waterCondition(localMap[i]['o2']);
     date = localMap[i]['date'];
-    if (quality == 'good' &&
-        waterQuality == 'assets/images/happy_green_fish.png' &&
-        date == dateSeleted) {
+
+    if (date == dateSeleted &&
+        (quality == 'all' || waterQuality == qualityToImageMap[quality])) {
       cutMap.add(localMap[i]);
-    } else if (quality == 'average' &&
-        waterQuality == 'assets/images/yellow_fish.png' &&
-        date == dateSeleted) {
-      cutMap.add(localMap[i]);
-    } else if (quality == 'bad' &&
-        waterQuality == 'assets/images/sad_red_fish.png' &&
-        date == dateSeleted) {
-      cutMap.add(localMap[i]);
-    } else if (quality == 'all' && date == dateSeleted) {
+    }
+    if (dateSeleted == 'all' &&
+        (quality == 'all' || waterQuality == qualityToImageMap[quality])) {
       cutMap.add(localMap[i]);
     }
   }

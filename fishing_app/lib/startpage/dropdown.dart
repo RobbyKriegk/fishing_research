@@ -43,13 +43,20 @@ class _DropdownState extends ConsumerState<Dropdown> {
   buildDatesDropdownList(List<String> dates) {
     List<DropdownMenuEntry<Object>> datesList = [];
     for (int i = 0; i < dates.length; i++) {
+      DateTime date = DateTime.parse(dates[i]);
       datesList.add(DropdownMenuEntry(
           value: dates[i],
-          label: dates[i],
+          label: '${date.day}.${date.month}.${date.year}',
           style: ButtonStyle(
               textStyle:
                   MaterialStateProperty.all(const TextStyle(fontSize: 18)))));
     }
+    datesList.add(DropdownMenuEntry(
+        value: 'all',
+        label: 'Alle Daten',
+        style: ButtonStyle(
+            textStyle:
+                MaterialStateProperty.all(const TextStyle(fontSize: 18)))));
     return datesList;
   }
 
@@ -78,7 +85,7 @@ class _DropdownState extends ConsumerState<Dropdown> {
         DropdownMenu(
             inputDecorationTheme: dropdownTheme,
             trailingIcon: const Icon(Icons.arrow_drop_down, size: 30),
-            label: const Text('Wasserqualität label'),
+            label: const Text('Wasserqualität wählen'),
             textStyle: const TextStyle(color: Colors.white, fontSize: 20),
             width: 390,
             dropdownMenuEntries: items2,
@@ -101,7 +108,7 @@ class _DropdownState extends ConsumerState<Dropdown> {
         DropdownMenu(
           inputDecorationTheme: dropdownTheme,
           trailingIcon: const Icon(Icons.arrow_drop_down, size: 30),
-          label: const Text('Datum'),
+          label: const Text('Datum wählen'),
           textStyle: const TextStyle(color: Colors.white, fontSize: 20),
           width: 390,
           dropdownMenuEntries: buildDatesDropdownList(ref.watch(dateProvider)),
