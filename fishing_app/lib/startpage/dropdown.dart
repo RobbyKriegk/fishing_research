@@ -41,7 +41,7 @@ class _DropdownState extends ConsumerState<Dropdown> {
   ];
 
   buildDatesDropdownList(List<String> dates) {
-    List<DropdownMenuEntry> datesList = [];
+    List<DropdownMenuEntry<Object>> datesList = [];
     for (int i = 0; i < dates.length; i++) {
       datesList.add(DropdownMenuEntry(
           value: dates[i],
@@ -99,13 +99,18 @@ class _DropdownState extends ConsumerState<Dropdown> {
             }),
         const SizedBox(height: 20),
         DropdownMenu(
-            inputDecorationTheme: dropdownTheme,
-            trailingIcon: const Icon(Icons.arrow_drop_down, size: 30),
-            label: const Text('Datum'),
-            textStyle: const TextStyle(color: Colors.white, fontSize: 20),
-            width: 390,
-            dropdownMenuEntries:
-                buildDatesDropdownList(ref.watch(dateProvider))),
+          inputDecorationTheme: dropdownTheme,
+          trailingIcon: const Icon(Icons.arrow_drop_down, size: 30),
+          label: const Text('Datum'),
+          textStyle: const TextStyle(color: Colors.white, fontSize: 20),
+          width: 390,
+          dropdownMenuEntries: buildDatesDropdownList(ref.watch(dateProvider)),
+          onSelected: (value) {
+            if (value is String) {
+              ref.read(dateSelectedProvider.notifier).state = value;
+            }
+          },
+        ),
         const SizedBox(height: 20),
       ],
     );

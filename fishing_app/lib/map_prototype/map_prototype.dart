@@ -17,6 +17,8 @@ class MapPrototype extends ConsumerStatefulWidget {
 
 class _MapPrototypeState extends ConsumerState<MapPrototype> {
   bool showLayer = false;
+  String dateSelected = '';
+  String quality = '';
   MapController mapController = MapController();
   List<dynamic> csvData = [];
 
@@ -43,6 +45,8 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
   @override
   Widget build(BuildContext context) {
     showLayer = ref.watch(visibilityProvider);
+    dateSelected = ref.watch(dateSelectedProvider);
+    quality = ref.watch(qualitiyProvider);
     return FlutterMap(
       mapController: mapController,
       options: const MapOptions(
@@ -58,11 +62,11 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
         Visibility(
             visible: showLayer,
             child: CircleLayer(
-                circles: createCircle(mapPoints, ref.watch(qualitiyProvider)))),
+                circles: createCircle(mapPoints, quality, dateSelected))),
         Visibility(
             visible: showLayer,
             child: MarkerLayer(
-              markers: createMarkerRoad(mapPoints, ref.watch(qualitiyProvider)),
+              markers: createMarkerRoad(mapPoints, quality, dateSelected),
             )),
         ZoomButtons(mapController: mapController),
       ],

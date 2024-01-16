@@ -1,11 +1,13 @@
 import 'package:fishing_app/app_colors.dart';
+import 'package:fishing_app/provider.dart';
 import 'package:fishing_app/water_condition_function.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
-createMarkerRoad(List<Map<String, dynamic>> localMap, String quality) {
-  List<Map<String, dynamic>> cuttedMap = cutMap(localMap, quality);
+createMarkerRoad(
+    List<Map<String, dynamic>> localMap, String quality, String dateSeleted) {
+  List<Map<String, dynamic>> cuttedMap = cutMap(localMap, quality, dateSeleted);
   List<Marker> markerList = [];
   for (int i = 0; i < cuttedMap.length; i++) {
     markerList.add(Marker(
@@ -18,8 +20,9 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality) {
   return markerList;
 }
 
-createCircle(List<Map<String, dynamic>> localMap, String quality) {
-  List<Map<String, dynamic>> cuttedMap = cutMap(localMap, quality);
+createCircle(
+    List<Map<String, dynamic>> localMap, String quality, String dateSeleted) {
+  List<Map<String, dynamic>> cuttedMap = cutMap(localMap, quality, dateSeleted);
   List<CircleMarker> circleList = [];
   for (int i = 0; i < cuttedMap.length; i++) {
     circleList.add(CircleMarker(
@@ -34,20 +37,27 @@ createCircle(List<Map<String, dynamic>> localMap, String quality) {
   return circleList;
 }
 
-cutMap(List<Map<String, dynamic>> localMap, String quality) {
+cutMap(
+    List<Map<String, dynamic>> localMap, String quality, String dateSeleted) {
   List<Map<String, dynamic>> cutMap = [];
+  String waterQuality = '';
+  String date = '';
   for (int i = 0; i < localMap.length; i++) {
+    waterQuality = waterCondition(localMap[i]['o2']);
+    date = localMap[i]['date'];
     if (quality == 'good' &&
-        waterCondition(localMap[i]['o2']) ==
-            'assets/images/happy_green_fish.png') {
+        waterQuality == 'assets/images/happy_green_fish.png' &&
+        date == dateSeleted) {
       cutMap.add(localMap[i]);
     } else if (quality == 'average' &&
-        waterCondition(localMap[i]['o2']) == 'assets/images/yellow_fish.png') {
+        waterQuality == 'assets/images/yellow_fish.png' &&
+        date == dateSeleted) {
       cutMap.add(localMap[i]);
     } else if (quality == 'bad' &&
-        waterCondition(localMap[i]['o2']) == 'assets/images/sad_red_fish.png') {
+        waterQuality == 'assets/images/sad_red_fish.png' &&
+        date == dateSeleted) {
       cutMap.add(localMap[i]);
-    } else if (quality == 'all') {
+    } else if (quality == 'all' && date == dateSeleted) {
       cutMap.add(localMap[i]);
     }
   }
