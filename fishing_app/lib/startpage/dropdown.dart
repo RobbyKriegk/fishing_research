@@ -13,6 +13,20 @@ class Dropdown extends ConsumerStatefulWidget {
 }
 
 class _DropdownState extends ConsumerState<Dropdown> {
+  List<DropdownMenuEntry> cities = [
+    DropdownMenuEntry(
+        value: 'Lübeck',
+        label: 'Lübeck',
+        style: ButtonStyle(
+            textStyle:
+                MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
+    DropdownMenuEntry(
+        value: 'Rostock',
+        label: 'Rostock',
+        style: ButtonStyle(
+            textStyle:
+                MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
+  ];
   List<DropdownMenuEntry> items2 = [
     DropdownMenuEntry(
         value: 'good',
@@ -36,8 +50,8 @@ class _DropdownState extends ConsumerState<Dropdown> {
         value: 'all',
         label: 'Alle Wasserqualitäten',
         style: ButtonStyle(
-            textStyle:
-                MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
+            textStyle: MaterialStateProperty.all(
+                const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)))),
   ];
 
   buildDatesDropdownList(List<String> dates) {
@@ -53,10 +67,10 @@ class _DropdownState extends ConsumerState<Dropdown> {
     }
     datesList.add(DropdownMenuEntry(
         value: 'all',
-        label: 'Alle Daten',
+        label: 'Alle Tage',
         style: ButtonStyle(
-            textStyle:
-                MaterialStateProperty.all(const TextStyle(fontSize: 18)))));
+            textStyle: MaterialStateProperty.all(
+                const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)))));
     return datesList;
   }
 
@@ -82,6 +96,15 @@ class _DropdownState extends ConsumerState<Dropdown> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        DropdownMenu(
+          inputDecorationTheme: dropdownTheme,
+          trailingIcon: const Icon(Icons.arrow_drop_down, size: 30),
+          label: const Text('Ort wählen'),
+          textStyle: const TextStyle(color: Colors.white, fontSize: 20),
+          width: 390,
+          dropdownMenuEntries: cities,
+        ),
+        const SizedBox(height: 20),
         DropdownMenu(
             inputDecorationTheme: dropdownTheme,
             trailingIcon: const Icon(Icons.arrow_drop_down, size: 30),
@@ -118,7 +141,7 @@ class _DropdownState extends ConsumerState<Dropdown> {
             }
           },
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
       ],
     );
   }

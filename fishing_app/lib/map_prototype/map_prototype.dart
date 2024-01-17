@@ -19,6 +19,7 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
   bool showLayer = false;
   String dateSelected = '';
   String quality = '';
+  double zoom = 0.0;
   MapController mapController = MapController();
   List<dynamic> csvData = [];
 
@@ -47,6 +48,10 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
     showLayer = ref.watch(visibilityProvider);
     dateSelected = ref.watch(dateSelectedProvider);
     quality = ref.watch(qualitiyProvider);
+    List<CircleMarker> circles = createCircle(mapPoints, quality, dateSelected);
+    List<Marker> marker = createMarkerRoad(
+        mapPoints, quality, dateSelected, ref.watch(zoomProvider));
+    print(ref.watch(zoomProvider));
     return FlutterMap(
       mapController: mapController,
       options: const MapOptions(
@@ -59,14 +64,11 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
               'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=O8whOpzaILpG8fOEB2Fz',
           userAgentPackageName: 'unknown',
         ),
-        Visibility(
-            visible: showLayer,
-            child: CircleLayer(
-                circles: createCircle(mapPoints, quality, dateSelected))),
+        Visibility(visible: showLayer, child: CircleLayer(circles: circles)),
         Visibility(
             visible: showLayer,
             child: MarkerLayer(
-              markers: createMarkerRoad(mapPoints, quality, dateSelected),
+              markers: marker,
             )),
         ZoomButtons(mapController: mapController),
       ],

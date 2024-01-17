@@ -1,4 +1,5 @@
 import 'package:fishing_app/app_colors.dart';
+import 'package:fishing_app/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,8 +26,10 @@ class _ZoomButtonsState extends ConsumerState<ZoomButtons> {
             backgroundColor: AppColors.backGroundDark,
             onPressed: () {
               setState(() {
-                widget.mapController.move(
-                    widget.mapController.center, widget.mapController.zoom + 1);
+                widget.mapController.move(widget.mapController.camera.center,
+                    widget.mapController.camera.zoom + 1);
+                ref.read(zoomProvider.notifier).state =
+                    widget.mapController.camera.zoom;
               });
             },
             child: const Icon(Icons.add, color: Colors.white)),
@@ -36,8 +39,10 @@ class _ZoomButtonsState extends ConsumerState<ZoomButtons> {
             backgroundColor: AppColors.backGroundDark,
             onPressed: () {
               setState(() {
-                widget.mapController.move(
-                    widget.mapController.center, widget.mapController.zoom - 1);
+                widget.mapController.move(widget.mapController.camera.center,
+                    widget.mapController.camera.zoom - 1);
+                ref.read(zoomProvider.notifier).state =
+                    widget.mapController.camera.zoom;
               });
             },
             child: const Icon(Icons.remove, color: Colors.white)),

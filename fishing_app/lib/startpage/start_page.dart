@@ -44,7 +44,7 @@ class _StartPageState extends State<StartPage> {
                       borderRadius: BorderRadius.circular(5)),
                   child: const MapPrototype(),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
                 const Dropdown()
               ])),
     );

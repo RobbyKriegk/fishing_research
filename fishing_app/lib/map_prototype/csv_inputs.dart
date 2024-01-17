@@ -1,7 +1,5 @@
 import "package:csv/csv.dart";
 import "package:fishing_app/map_prototype/get_distance.dart";
-import "package:fishing_app/provider.dart";
-import "package:flutter_riverpod/flutter_riverpod.dart";
 
 Future<List<List<dynamic>>> csvListCreator(List csvData) async {
   List<List<dynamic>> fields = [];
@@ -9,8 +7,6 @@ Future<List<List<dynamic>>> csvListCreator(List csvData) async {
     final input = await csvData[i];
     fields.add(const CsvToListConverter().convert(input));
   }
-  print('fields: $fields');
-  print(fields[0][0].length);
   return fields;
 }
 
@@ -82,9 +78,6 @@ csvListProcessing(List<List<dynamic>> fields) {
       }
     }
     localMap[i]['distance'] = distance;
-  }
-  for (int i = 0; i < localMap.length; i++) {
-    print('$i, ${localMap[i]}');
   }
   return localMap;
 }
