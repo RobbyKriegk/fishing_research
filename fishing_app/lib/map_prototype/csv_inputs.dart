@@ -1,4 +1,5 @@
 import "package:csv/csv.dart";
+import "package:fishing_app/map_prototype/create_layer_functions.dart";
 import "package:fishing_app/map_prototype/get_distance.dart";
 
 Future<List<List<dynamic>>> csvListCreator(List csvData) async {
@@ -8,23 +9,6 @@ Future<List<List<dynamic>>> csvListCreator(List csvData) async {
     fields.add(const CsvToListConverter().convert(input));
   }
   return fields;
-}
-
-double median(List a) {
-  var middle = a.length ~/ 2;
-  if (a.length % 2 == 1) {
-    return a[middle];
-  } else {
-    return (a[middle - 1] + a[middle]) / 2.0;
-  }
-}
-
-double average(List a) {
-  double sum = 0;
-  for (int i = 0; i < a.length; i++) {
-    sum += a[i];
-  }
-  return sum / a.length;
 }
 
 csvListProcessing(List<List<dynamic>> fields) {

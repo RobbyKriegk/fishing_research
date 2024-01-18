@@ -1,7 +1,5 @@
 import 'package:fishing_app/app_colors.dart';
 import 'package:fishing_app/provider.dart';
-import 'package:fishing_app/startpage/fishing_buttons.dart';
-import 'package:fishing_app/water_condition_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,17 +13,23 @@ class Dropdown extends ConsumerStatefulWidget {
 class _DropdownState extends ConsumerState<Dropdown> {
   List<DropdownMenuEntry> cities = [
     DropdownMenuEntry(
-        value: 'Lübeck',
+        value: {'lat': 53.865467, 'lng': 10.686559},
         label: 'Lübeck',
         style: ButtonStyle(
             textStyle:
                 MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
     DropdownMenuEntry(
-        value: 'Rostock',
+        value: {'lat': 54.083336, 'lng': 12.108811},
         label: 'Rostock',
         style: ButtonStyle(
             textStyle:
                 MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
+    DropdownMenuEntry(
+        value: 'all',
+        label: 'Alle',
+        style: ButtonStyle(
+            textStyle: MaterialStateProperty.all(
+                const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)))),
   ];
   List<DropdownMenuEntry> items2 = [
     DropdownMenuEntry(

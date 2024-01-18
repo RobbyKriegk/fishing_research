@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
 createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
-    String dateSeleted, double zoom) {
-  List<Map<String, dynamic>> cuttedMap = cutMap(localMap, quality, dateSeleted);
+    String dateSeleted, double zoom, double cityLat, double cityLng) {
+  List<Map<String, dynamic>> cuttedMap =
+      cutMap(localMap, quality, dateSeleted, cityLat, cityLng);
   List<Marker> markerList = [];
   if (zoom >= 12) {
     for (int i = 0; i < cuttedMap.length; i++) {
@@ -36,9 +37,10 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
   return markerList;
 }
 
-createCircle(
-    List<Map<String, dynamic>> localMap, String quality, String dateSeleted) {
-  List<Map<String, dynamic>> cuttedMap = cutMap(localMap, quality, dateSeleted);
+createCircle(List<Map<String, dynamic>> localMap, String quality,
+    String dateSeleted, double zoom, double cityLat, double cityLng) {
+  List<Map<String, dynamic>> cuttedMap =
+      cutMap(localMap, quality, dateSeleted, cityLat, cityLng);
   List<CircleMarker> circleList = [];
   for (int i = 0; i < cuttedMap.length; i++) {
     circleList.add(CircleMarker(
@@ -53,8 +55,8 @@ createCircle(
   return circleList;
 }
 
-cutMap(
-    List<Map<String, dynamic>> localMap, String quality, String dateSeleted) {
+cutMap(List<Map<String, dynamic>> localMap, String quality, String dateSeleted,
+    double cityLat, double cityLng) {
   List<Map<String, dynamic>> cutMap = [];
   String waterQuality = '';
   String date = '';
@@ -78,4 +80,21 @@ cutMap(
     }
   }
   return cutMap;
+}
+
+double median(List a) {
+  var middle = a.length ~/ 2;
+  if (a.length % 2 == 1) {
+    return a[middle];
+  } else {
+    return (a[middle - 1] + a[middle]) / 2.0;
+  }
+}
+
+double average(List a) {
+  double sum = 0;
+  for (int i = 0; i < a.length; i++) {
+    sum += a[i];
+  }
+  return sum / a.length;
 }

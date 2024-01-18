@@ -20,7 +20,7 @@ app.get('/database-data', (req, res) => {
 
 app.get('/trigger-python', (req, res) => {
   // Execute the Python script when the endpoint is hit
-  exec('python main.py', (error, stdout, stderr) => {
+  exec('python3 main.py', (error, stdout, stderr) => {
     console.log(`stdout: ${stdout}`);
     if (error) {
       console.error(`Error executing Python script: ${error}`);
