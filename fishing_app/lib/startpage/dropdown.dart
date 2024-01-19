@@ -13,19 +13,26 @@ class Dropdown extends ConsumerStatefulWidget {
 class _DropdownState extends ConsumerState<Dropdown> {
   List<DropdownMenuEntry> cities = [
     DropdownMenuEntry(
-        value: {'lat': 53.865467, 'lng': 10.686559},
+        value: [
+          {'lat': 53.865467, 'lng': 10.686559, 'city': 'Lübeck'}
+        ],
         label: 'Lübeck',
         style: ButtonStyle(
             textStyle:
                 MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
     DropdownMenuEntry(
-        value: {'lat': 54.083336, 'lng': 12.108811},
+        value: [
+          {'lat': 54.083336, 'lng': 12.108811, 'city': 'Rostock'}
+        ],
         label: 'Rostock',
         style: ButtonStyle(
             textStyle:
                 MaterialStateProperty.all(const TextStyle(fontSize: 18)))),
     DropdownMenuEntry(
-        value: 'all',
+        value: [
+          {'lat': 53.865467, 'lng': 10.686559, 'city': 'Lübeck'},
+          {'lat': 54.083336, 'lng': 12.108811, 'city': 'Rostock'}
+        ],
         label: 'Alle',
         style: ButtonStyle(
             textStyle: MaterialStateProperty.all(
@@ -107,6 +114,11 @@ class _DropdownState extends ConsumerState<Dropdown> {
           textStyle: const TextStyle(color: Colors.white, fontSize: 20),
           width: 390,
           dropdownMenuEntries: cities,
+          onSelected: (value) {
+            if (value is List<Map<String, dynamic>>) {
+              ref.read(cityProvider.notifier).state = value;
+            }
+          },
         ),
         const SizedBox(height: 20),
         DropdownMenu(

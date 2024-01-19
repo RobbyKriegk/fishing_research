@@ -20,8 +20,7 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
   String dateSelected = '';
   String quality = '';
   double zoom = 0.0;
-  double cityLat = 0.0;
-  double cityLng = 0.0;
+  List<Map<String, dynamic>> city = [];
   MapController mapController = MapController();
   List<dynamic> csvData = [];
 
@@ -51,11 +50,12 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
     dateSelected = ref.watch(dateSelectedProvider);
     quality = ref.watch(qualitiyProvider);
     zoom = ref.watch(zoomProvider);
+    city = ref.watch(cityProvider);
 
     List<CircleMarker> circles =
-        createCircle(mapPoints, quality, dateSelected, zoom, cityLat, cityLng);
-    List<Marker> marker = createMarkerRoad(
-        mapPoints, quality, dateSelected, zoom, cityLat, cityLng);
+        createCircle(mapPoints, quality, dateSelected, zoom);
+    List<Marker> marker =
+        createMarkerRoad(mapPoints, quality, dateSelected, zoom, city);
     return FlutterMap(
       mapController: mapController,
       options: const MapOptions(

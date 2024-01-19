@@ -6,4 +6,4 @@ final visibilityProvider = StateProvider<bool>((ref) => false);
 final dateProvider = StateProvider<List<String>>((ref) => []);
 final dateSelectedProvider = StateProvider<String>((ref) => '');
 final zoomProvider = StateProvider<double>((ref) => 10.0);
-final cityProvider = StateProvider<Map<String, dynamic>>((ref) => {});
+final cityProvider = StateProvider<List<Map<String, dynamic>>>((ref) => []);
