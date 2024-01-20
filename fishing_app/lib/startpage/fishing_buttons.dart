@@ -1,6 +1,5 @@
 import 'package:fishing_app/app_colors.dart';
 import 'package:fishing_app/provider.dart';
-import 'package:fishing_app/water_condition_function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -53,7 +53,7 @@ class _MapPrototypeState extends ConsumerState<MapPrototype> {
     city = ref.watch(cityProvider);
 
     List<CircleMarker> circles =
-        createCircle(mapPoints, quality, dateSelected, zoom);
+        createCircle(mapPoints, quality, dateSelected, zoom, city);
     List<Marker> marker =
         createMarkerRoad(mapPoints, quality, dateSelected, zoom, city);
     return FlutterMap(

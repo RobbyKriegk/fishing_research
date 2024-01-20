@@ -17,7 +17,7 @@ csvListProcessing(List<List<dynamic>> fields) {
   double medianLng = 0;
   double distance = 0;
   double medianO2 = 0;
-  for (int i = 0; i < fields.length; i++) {
+  for (int i = 0; i < fields.length - 5; i++) {
     List pointsList = [];
     List latList = [];
     List lngList = [];

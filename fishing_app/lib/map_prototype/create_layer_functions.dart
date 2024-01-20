@@ -1,5 +1,4 @@
 import 'package:fishing_app/app_colors.dart';
-import 'package:fishing_app/map_prototype/csv_inputs.dart';
 import 'package:fishing_app/map_prototype/get_distance.dart';
 import 'package:fishing_app/water_condition_function.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -29,7 +28,6 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
       }
     } else {
       if (quality == 'all') {
-        print('test');
         List<Map<String, dynamic>> goodMap = [];
         List<Map<String, dynamic>> averageMap = [];
         List<Map<String, dynamic>> badMap = [];
@@ -44,7 +42,6 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
             badMap.add(tempMap[i]);
           }
         }
-        print(goodMap.length);
         if (goodMap.isNotEmpty) {
           List lats = goodMap.map((point) => point['lat']).toList();
           List lngs = goodMap.map((point) => point['lng']).toList();
@@ -76,12 +73,14 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
               child: Image.asset(waterCondition(median(o2s)))));
         }
       } else {
+        print('test');
         List lats = tempMap.map((point) => point['lat']).toList();
         List lngs = tempMap.map((point) => point['lng']).toList();
         List o2s = tempMap.map((point) => point['o2']).toList();
 
         if (lats.isEmpty) {
-          return markerList;
+          print('test2');
+          continue;
         }
 
         var asset = median(o2s);
@@ -94,27 +93,132 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
       }
     }
   }
-  // for (int i = 0; i < markerList.length; i++) {
-  //   print(markerList[i].point);
-  // }
   return markerList;
 }
 
 createCircle(List<Map<String, dynamic>> localMap, String quality,
-    String dateSeleted, double zoom) {
+    String dateSeleted, double zoom, List<Map<String, dynamic>> city) {
   List<Map<String, dynamic>> filteredMap =
       filterMap(localMap, quality, dateSeleted);
-  List<CircleMarker> circleList = [];
-  for (int i = 0; i < filteredMap.length; i++) {
-    circleList.add(CircleMarker(
-        useRadiusInMeter: true,
-        point: LatLng(filteredMap[i]['lat'], filteredMap[i]['lng']),
-        color: const Color.fromARGB(255, 244, 67, 54).withOpacity(0.2),
-        radius: filteredMap[i]['distance'] ?? 0,
-        borderStrokeWidth: 2,
-        borderColor: AppColors.backGroundDark.withOpacity(0.6)));
-  }
+  List<Map<String, dynamic>> sortedMap = sortCitiesMap(filteredMap, city);
 
+  List<CircleMarker> circleList = [];
+  List latList = [];
+  List lngList = [];
+  double medianLat = 0;
+  double medianLng = 0;
+  double distance = 0;
+
+  if (sortedMap.isEmpty) {
+    return circleList;
+  }
+  for (int i = 0; i < sortedMap.length; i++) {
+    List<Map<String, dynamic>> tempMap = sortedMap[i]['maps'];
+    if (quality == 'all') {
+      List<Map<String, dynamic>> goodMap = [];
+      List<Map<String, dynamic>> averageMap = [];
+      List<Map<String, dynamic>> badMap = [];
+      for (int i = 0; i < tempMap.length; i++) {
+        if (waterCondition(tempMap[i]['o2']) ==
+            'assets/images/happy_green_fish.png') {
+          goodMap.add(tempMap[i]);
+        } else if (waterCondition(tempMap[i]['o2']) ==
+            'assets/images/yellow_fish.png') {
+          averageMap.add(tempMap[i]);
+        } else {
+          badMap.add(tempMap[i]);
+        }
+      }
+      if (goodMap.isNotEmpty) {
+        latList = goodMap.map((point) => point['lat']).toList();
+        lngList = goodMap.map((point) => point['lng']).toList();
+        medianLat = median(latList);
+        medianLng = median(lngList);
+        double goodDistance = 0;
+        for (int i = 0; i < latList.length; i++) {
+          double checkDistance =
+              GeoUtils.haversine(medianLat, medianLng, latList[i], lngList[i]);
+          if (checkDistance > goodDistance) {
+            goodDistance = checkDistance;
+          }
+        }
+        circleList.add(CircleMarker(
+            useRadiusInMeter: true,
+            point: LatLng(medianLat, medianLng),
+            color: const Color.fromARGB(255, 244, 67, 54).withOpacity(0.2),
+            radius: goodDistance * 1.2,
+            borderStrokeWidth: 2,
+            borderColor: AppColors.backGroundDark.withOpacity(0.6)));
+      }
+      if (averageMap.isNotEmpty) {
+        latList = averageMap.map((point) => point['lat']).toList();
+        lngList = averageMap.map((point) => point['lng']).toList();
+        medianLat = median(latList);
+        medianLng = median(lngList);
+        double averageDistance = 0;
+        for (int i = 0; i < latList.length; i++) {
+          double checkDistance =
+              GeoUtils.haversine(medianLat, medianLng, latList[i], lngList[i]);
+          if (checkDistance > averageDistance) {
+            averageDistance = checkDistance;
+          }
+        }
+        circleList.add(CircleMarker(
+            useRadiusInMeter: true,
+            point: LatLng(medianLat, medianLng),
+            color: const Color.fromARGB(255, 244, 67, 54).withOpacity(0.2),
+            radius: averageDistance * 1.2,
+            borderStrokeWidth: 2,
+            borderColor: AppColors.backGroundDark.withOpacity(0.6)));
+      }
+      if (badMap.isNotEmpty) {
+        latList = badMap.map((point) => point['lat']).toList();
+        lngList = badMap.map((point) => point['lng']).toList();
+        medianLat = median(latList);
+        medianLng = median(lngList);
+        double badDistance = 0;
+        for (int i = 0; i < latList.length; i++) {
+          double checkDistance =
+              GeoUtils.haversine(medianLat, medianLng, latList[i], lngList[i]);
+          if (checkDistance > badDistance) {
+            badDistance = checkDistance;
+          }
+        }
+        circleList.add(CircleMarker(
+            useRadiusInMeter: true,
+            point: LatLng(medianLat, medianLng),
+            color: const Color.fromARGB(255, 244, 67, 54).withOpacity(0.2),
+            radius: badDistance * 1.2,
+            borderStrokeWidth: 2,
+            borderColor: AppColors.backGroundDark.withOpacity(0.6)));
+      }
+    } else {
+      latList = tempMap.map((point) => point['lat']).toList();
+      lngList = tempMap.map((point) => point['lng']).toList();
+      if (latList.isEmpty) {
+        continue;
+      }
+
+      medianLat = median(latList);
+      medianLng = median(lngList);
+
+      for (int i = 0; i < latList.length; i++) {
+        double checkDistance =
+            GeoUtils.haversine(medianLat, medianLng, latList[i], lngList[i]);
+        if (checkDistance > distance) {
+          distance = checkDistance;
+        }
+      }
+
+      circleList.add(CircleMarker(
+          useRadiusInMeter: true,
+          point: LatLng(medianLat, medianLng),
+          color: const Color.fromARGB(255, 244, 67, 54).withOpacity(0.2),
+          radius: distance * 1.2,
+          borderStrokeWidth: 2,
+          borderColor: AppColors.backGroundDark.withOpacity(0.6)));
+    }
+  }
   return circleList;
 }
 
