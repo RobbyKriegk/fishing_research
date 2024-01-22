@@ -20,8 +20,8 @@ class _StartPageState extends State<StartPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child:
-              Text('IOW - Wasserdaten', style: TextStyle(color: Colors.white)),
+          child: Text('IOW - Visualisierung Wasserqualität',
+              style: TextStyle(color: Colors.white)),
         ),
         backgroundColor: AppColors.backGroundDark,
       ),

@@ -21,8 +21,8 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
       for (int i = 0; i < tempMap.length; i++) {
         markerList.add(Marker(
           point: LatLng(tempMap[i]['lat'], tempMap[i]['lng']),
-          width: 80,
-          height: 80,
+          width: 70,
+          height: 70,
           child: Image.asset(waterCondition(tempMap[i]['o2'])),
         ));
       }
@@ -48,8 +48,8 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
           List o2s = goodMap.map((point) => point['o2']).toList();
           markerList.add(Marker(
               point: LatLng(median(lats), median(lngs)),
-              width: 80,
-              height: 80,
+              width: 90,
+              height: 90,
               child: Image.asset(waterCondition(median(o2s)))));
         }
         if (averageMap.isNotEmpty) {
@@ -58,8 +58,8 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
           List o2s = averageMap.map((point) => point['o2']).toList();
           markerList.add(Marker(
               point: LatLng(median(lats), median(lngs)),
-              width: 80,
-              height: 80,
+              width: 90,
+              height: 90,
               child: Image.asset(waterCondition(median(o2s)))));
         }
         if (badMap.isNotEmpty) {
@@ -68,18 +68,16 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
           List o2s = badMap.map((point) => point['o2']).toList();
           markerList.add(Marker(
               point: LatLng(median(lats), median(lngs)),
-              width: 80,
-              height: 80,
+              width: 90,
+              height: 90,
               child: Image.asset(waterCondition(median(o2s)))));
         }
       } else {
-        print('test');
         List lats = tempMap.map((point) => point['lat']).toList();
         List lngs = tempMap.map((point) => point['lng']).toList();
         List o2s = tempMap.map((point) => point['o2']).toList();
 
         if (lats.isEmpty) {
-          print('test2');
           continue;
         }
 
@@ -87,8 +85,8 @@ createMarkerRoad(List<Map<String, dynamic>> localMap, String quality,
 
         markerList.add(Marker(
             point: LatLng(median(lats), median(lngs)),
-            width: 80,
-            height: 80,
+            width: 90,
+            height: 90,
             child: Image.asset(waterCondition(asset))));
       }
     }
