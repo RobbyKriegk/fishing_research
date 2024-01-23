@@ -33,7 +33,7 @@ class _DropdownState extends ConsumerState<Dropdown> {
           {'lat': 53.865467, 'lng': 10.686559, 'city': 'Lübeck'},
           {'lat': 54.083336, 'lng': 12.108811, 'city': 'Rostock'}
         ],
-        label: 'Alle',
+        label: 'Alle Standorte',
         style: ButtonStyle(
             textStyle: MaterialStateProperty.all(
                 const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)))),
