@@ -4,8 +4,7 @@ import numpy as np
 # connect to engine/db
 def connect_to_Maria():
     try:
-        # engine = sqlalchemy.create_engine('mysql+pymysql://admin:tfZwSRanFaAZ@hyfive.info:3306/hyFiveDB')
-        engine = sqlalchemy.create_engine('mysql+pymysql://student:student0815@hyfive.info:3306/hyFiveDB')
+        // add connection
         conn = engine.connect()
     except sqlalchemy.exc.SQLAlchemyError as e:
         error = str(e.__dict__['orig'])
